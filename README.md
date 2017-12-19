@@ -6,7 +6,7 @@ container based upon the [rocker](https://hub.docker.com/r/rocker/rstudio/) RStu
 ##  How to Use
 
 1. Install Docker (free community editions for MacOS, Windows, Linux, and several cloud provideres are all available via the [Docker Store](https://store.docker.com/search?type=edition&offering=community)).
-2. `docker run -d -p 8787:8787 davidski/evaluator:0.1.0`.
+2. `docker run -d -p 8787:8787 davidski/evaluator:latest`.
 3. Navigate with a local web browser to http://localhost:8787.
 4. Login to RStudio with the user `rstudio` and the password `rstudio`.
 
