@@ -6,14 +6,15 @@ EVALUATOR=${EVALUATOR:=none}
 
 if [ "$EVALUATOR" == "init" ]; then
   echo "Creating templates..."	
-    r --verbose -e 'library(evaluator);create_templates("/data")' &
-    cd /
+  r --verbose -e 'library(evaluator);create_templates("/data")'
+  cd /
+  #s6-svc -pt -wU /etc/services.d/rstudio
 fi
 
 if [ "$EVALUATOR" == "run" ]; then
   echo "Running analysis..."	
-    Rscript -e 'base_dir <- "/data";source("/data/run_analysis.R")' &
-    cd /
+  r --verbose -e 'base_dir <- "/data";source("/data/run_analysis.R", echo=TRUE)'
+  cd /
 fi
 
 if [ $"$EVALUATOR" == "none" ]; then
