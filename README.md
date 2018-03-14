@@ -6,11 +6,20 @@ working installation of Evaluator and all of its dependencies without having to 
 
 ##  How to Use
 
+### Interactive Use
+
 1. Install Docker (free community editions for MacOS, Windows, Linux, and several cloud providers are 
 all available via the [Docker Store](https://store.docker.com/search?type=edition&offering=community)).
 2. `docker run -d -p 8787:8787 davidski/evaluator:latest`.
 3. Navigate with a local web browser to http://localhost:8787.
 4. Login to RStudio with the user `rstudio` and the password `rstudio`.
+
+### Simplified Analysis Flow
+
+1. `docker run -it -e EVALUATOR=init -v "$(pwd)/evaluator":/data davidski/evaluator:latest`.
+2. Edit the templates in the `evaluator/inputs` subdirectory on your host system.
+3. `docker run -it -e EVALUATOR=run -v "$(pwd)/evaluator":/data davidski/evaluator:latest`.
+4. Consume the reports and analysis in the `evaluator/results` directory on your host system.
 
 ### Data Storage
 
@@ -20,7 +29,7 @@ container's `/home/rstudio` directory.
 To store data in a pre-existing `data` subdirectory in your host's current working directory, use the 
 following command:
 
-> `docker run -d -p 8787:8787 -v $(pwd)/data:/home/rstudio davidski/evaluator:0.1.0`
+> `docker run -d -p 8787:8787 -v $(pwd)/data:/home/rstudio davidski/evaluator:latest`
 
 ## See Also
 
