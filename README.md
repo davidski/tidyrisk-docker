@@ -16,9 +16,9 @@ all available via the [Docker Store](https://store.docker.com/search?type=editio
 
 ### Simplified Analysis Flow
 
-1. `docker run -it -e EVALUATOR=init -v "$(pwd)/evaluator":/data davidski/evaluator:latest`.
+1. `docker run --rm -v "$(pwd)/evaluator":/data davidski/evaluator:latest create_templates`.
 2. Edit the templates in the `evaluator/inputs` subdirectory on your host system.
-3. `docker run -it -e EVALUATOR=run -v "$(pwd)/evaluator":/data davidski/evaluator:latest`.
+3. `docker run --rm -v "$(pwd)/evaluator":/data davidski/evaluator:latest run_analysis`.
 4. Consume the reports and analysis in the `evaluator/results` directory on your host system.
 
 ### Data Storage
