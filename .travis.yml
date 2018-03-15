@@ -1,0 +1,14 @@
+sudo: required
+services:
+- docker
+install:
+- docker build -t davidski/evaluator-docker .
+- docker run -d --name evaluator evaluator-docker
+script:
+- docker ps |grep -q evaluator
+- docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
+- docker push davidski/evaluator-docker:latest
+notifications:
+  slack:
+    secure: lBu+n1YP9FaPTiSpDWZqBXDJF1yoTC77kw6VI26S0GO8RcyEMZZNYGsjiEoTu1SMxbJsvIRC6Jg3kiU7Vnoz9lV/Oj9Xp8oEmS5gL3AGiXq6L7yDxshOjAK0coa+aKIp6aP7xjOVZ9DqI7hCIJnelz9j/1APEwuPC+av4kBtcvnnz4oClKDn+LRpowIGJufZ1IplCXjIyb89WOvjwI7hA/0WO8m6B/W1vU9xxQfeVeaeCRc/29RrIIX1elXLdu1YF8q56DJsnspNSFP8RuXMXvID5IXIXFqfOKb6G5BhYjNvaeovP2MCd5XpO7LYWQzAttRRoKLYO+f3MFRNb4iLIcciGcGa6h/pus7YQud/dWfj94zFleWp0xezduFLgJFrQd8BQXQiSjPcWTA+okwQqCf9DEFJMgCcC1i5vEE2OYtExicG5+835v+n38MrQdRp144Xl0X+bqITWb2xjfCDk5SHdAXR9poNPp5356Pj1roptbO9byZX1afoxEZ1CF3T5F+H7PQjuFWq6P+uDQpOS6+0hVtRrU6ry6MmXUnfmcAA+kqlNmdVDE8VTyckIzxzg9Ac3X94uaNZrUxarPOIGOQhP0Gj+wrtc3wx/BdLspJMtLS/PHq560UiUU/glbGllEClBQl+sCqRs9hsJwC8znlXvSAy28bf4oHhiGyiqD8=
+
