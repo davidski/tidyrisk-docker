@@ -1,14 +1,16 @@
 FROM rocker/rstudio:latest
 
 ARG EVALUATOR_VERSION
+ARG GITHUB_TOKEN
 
 LABEL maintainer="davidski@deadheaven.com"
 
 RUN apt-get update \
     && apt-get install -y zlib1g-dev libproj-dev \
-    && install2.r --deps=TRUE remotes
+    && install2.r --deps=TRUE remotes \
+    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-ADD https://api.github.com/repos/davidski/evaluator/git/refs/heads/master version.json
+ADD https://api.github.com/repos/davidski/evaluator/git/refs/heads/master?access_token=$GITHUB_TOKEN version.json
 
 RUN installGithub.r --deps=TRUE davidski/evaluator \
                           && apt-get clean \
