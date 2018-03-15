@@ -8,7 +8,7 @@ install:
   -t davidski/evaluator-docker .
 - docker run -d --name evaluator davidski/evaluator-docker
 script:
-- docker ps |grep -q rstudio
+- docker ps |grep -q evaluator
 after_success:
 - docker rm -f evaluator
 - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
