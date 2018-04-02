@@ -38,6 +38,10 @@ quantification toolkit.
 * [Rocker Wiki](https://github.com/rocker-org/rocker/wiki/Using-the-RStudio-image) - For additional 
 options on running and configuring the Dockerized RStudio instance.
 
+### Alternative Images
+
+* `noLD` contains a Rocker-derived version of r-devel without long double support for testing.
+
 ## Contributing
 
 This project is governed by a [Code of Conduct](./CODE_OF_CONDUCT.md). By 
