@@ -5,6 +5,8 @@ ARG GITHUB_TOKEN
 
 LABEL maintainer="davidski@deadheaven.com"
 
+RUN export ADD=shiny && bash /etc/cont-init.d/add
+
 RUN apt-get update \
     && apt-get install -y zlib1g-dev libproj-dev \
     && install2.r --deps=TRUE remotes \
@@ -22,3 +24,4 @@ COPY run_analysis.R /usr/local/bin/run_analysis
 VOLUME /data
 
 EXPOSE 8787
+EXPOSE 3838
