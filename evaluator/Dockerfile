@@ -3,7 +3,9 @@ FROM rocker/rstudio:3.5.3
 ARG EVALUATOR_VERSION
 ARG GITHUB_TOKEN
 
-LABEL maintainer="davidski@deadheaven.com"
+LABEL org.opencontainers.licenses="MIT" \
+      org.opencontainers.source="https://github.com/davidski/tidyrisk-docker" \
+      maintainer="David F. Severski <davidski@deadheaven.com>"
 
 RUN export ADD=shiny && bash /etc/cont-init.d/add
 
@@ -18,8 +20,8 @@ RUN installGithub.r --deps=TRUE davidski/evaluator \
                           && apt-get clean \
                           && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-COPY create_templates.R /usr/local/bin/create_templates
-COPY run_analysis.R /usr/local/bin/run_analysis
+COPY scripts/create_templates.R /usr/local/bin/create_templates
+COPY scripts/run_analysis.R /usr/local/bin/run_analysis
 
 VOLUME /data
 
