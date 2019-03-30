@@ -1,3 +1,8 @@
+[![Build Status](https://travis-ci.org/davidski/tidyrisk-docker.svg?branch=master)](https://travis-ci.org/davidski/tidyrisk-docker)
+[![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+
+Visit [tidyrisk.org](https://tidyrisk.org) for more about Tidyrisk.
+
 ## Introduction
 
 An all-in-one setup for running [evaluator](https://evaluator.tidyrisk.org). 
