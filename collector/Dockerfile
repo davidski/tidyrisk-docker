@@ -5,10 +5,10 @@ ARG GITHUB_TOKEN
 
 LABEL maintainer="davidski@deadheaven.com"
 
-RUN export ADD=shiny && bash /etc/cont-init.d/add
+#RUN export ADD=shiny && bash /etc/cont-init.d/add
 
 RUN apt-get update \
-    && apt-get install -y zlib1g-dev libproj-dev \
+    && apt-get install -y zlib1g-dev libproj-dev ibcairo2-dev \
     && install2.r --deps=TRUE remotes \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 

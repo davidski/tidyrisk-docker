@@ -3,8 +3,9 @@
 ## start with the Docker 'base R' Debian-based image
 FROM r-base:latest
 
-## This handle reaches Carl and Dirk
-MAINTAINER "Carl Boettiger and Dirk Eddelbuettel" rocker-maintainers@eddelbuettel.com
+LABEL org.opencontainers.licenses="MIT" \
+      org.opencontainers.source="https://github.com/davidski/tidyrisk-docker" \
+      maintainer="David F. Severski <davidski@deadheaven.com>"
 
 ## Remain current
 RUN apt-get update -qq \

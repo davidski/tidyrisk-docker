@@ -5,7 +5,7 @@ collector: .PHONY
 	make -C collector/ latest
 
 evaluator: .PHONY
-	make -C evaluator/ latest
+	make -C evaluator/ latest noLD
 
 tidyrisk: .PHONY
 	make -C tidyrisk/ latest
