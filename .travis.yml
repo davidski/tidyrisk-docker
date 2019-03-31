@@ -1,10 +1,16 @@
 services:
 - docker
 
+matrix:
+  include:
+    - env: BUILD_WHAT="evaluator"
+    - env: BUILD_WHAT="collector"
+    - env: BUILD_WHAT="tidyrisk"
+
 script:
-- make evaluator
-- make collector
-- make tidyrisk
+  - if [ "$BUILD_WHAT" == "evaluator" ]; then make evaluator; fi
+  - if [ "$BUILD_WHAT" == "collector" ]; then make collector; fi
+  - if [ "$BUILD_WHAT" == "tidyrisk" ]; then make tidyrisk; fi
 
 after_success:
 - docker rm -f evaluator collector
@@ -22,3 +28,5 @@ env:
   - secure: "Rks7BuPVU1O9LDfn8GoaWuXSwfz4ywV+EVXhkiOnUXEpicyxepW7oXFa7EceBa/k/CybD3H729BOhqxpoWHJ6GkSgkj4k2noYfvciemJD65/gxHk6RsmrmALIHvCLmkSDaJDXQdWN1vtmwWTGScTBwf3RZe8qWQkKVMI0RBHR4VypWLP+fylaLHsD3YrMBeOJD56xqTMZU4O1w8a6AheprWy44zDmq1H6JmDu388PdF8nA+sIfCIow1b/NgyyssPaF0h/Xw7TJ/YjufXtlKMHl59nV+UfPZyJoV61Q04FONoWVt9ZNmTUwt1tf2KxTLQz/k9Wc5MPqsWEVGaAADhlKHQiUAXf4t4B9WNVmnHODIMDzfcxTEbn3xlTASYxjYkA8ydM/l+A1uoIx74M5tZofU0v7durXGPFDtram1IT+e7Do2Xa6RbEHNBzvwax/qxwTicr+cNS8gIXe78238w05vdQH9x3YhNOPatPAnrhx/uiWcL59RQ593wCqcQNjUfavfvZUtjCRdvImhnq5lB6gxFAHUWZD9BN8+j6Gmlzgfn/D0+6J2/koWepTCqprt0UdtiUeKyDp2EthO5uY/v8a0npgdGQ409NZ7f4/zOFzoxanaSx75DtvfbZj+Sy8FmM0//pNFT/gC0iw8sdWGWS/z348l3raHiILNpN6MhpGQ="
   - secure: "ZQmzjc5LU31JBk/SHPIpwRtQJJt5ZBs2VtY2SWegFWvgmu3XBzuI0NkeKjtOik3Oxpp08Lay3lvtDfO3yblguGIFY5oAYIc6UaMuS4NN1rr0PiF0LILR0EdCcmWwJ1HSzYxKMmWITVOj1mRNZNyT0ZsbDlvW+mzdDwekCtxMrC26hO887E8D/1/pQJr/YhqW7fmZFD+Tmpbjbq4Js+GJw88lvXEfwXPI+6bgyTarv8zvUxoNh1xZQDlHuxORbZWavBfSsRGbcT3zK4Bt2G9S4nF+kFdJqgDMJyOSm+gZLpH2jn/9GdHyMmWUjp7Qk2T24k6/KgNN3GSBJNc9Ps1JYsWnxaq81P4dgXRRxTRxBlq2QChAXHZ2lVjzj+NAGtVHr6Wp57OTeFv1RJLvI4WpTzrJ7qzcIDUEK9ufpdnCxBKa9Zx+vlTSpJ+vt5rwRDD2V4S+eu8uXLoZQhVo+9tlz2QNO74O4xTAP0Yvd1wR+2HIxaymv+D6HDKwbg7nuK7vGj2JCWeSQz6GXsd3ocpwtJCdtm++NS7PbIepU7W9Bgn5N1o+GtRciCdSWCWkHKxF9JVYsYOJQ5gvmngFksn7z/pjSnPft08RQk9fYeMyn52NsL1KkD5AJuTIBnLikys4uAQeWk1+4SuQLu7ldOehqQYd3y7rukX743LSNr0JOoE="
   - secure: "R0iiyKgFY1t3JCvCNuW4wVoNru6j4mqnYMn/Dq9frX2uMPDSLijeJxD3IfMeJ48ppnz2Wst9aygpsXTuFgiYHwxxB829CN8O8HBtPIzR4sAlpVIQzVaOC4HWytjPEA/NFVyOEPP8sO23nRdR9l6/7Js2Lo8uzNWemr5vCYp+1BhWbjr1NFsNVo6vCbrOeKXyiznrsqMz4RbqD/pf23mKRk9anKeFPDl7AdSJaNd0mM9HYMSkuDF27KvOoNG5ClNUVG1Lcci2shBwcD30rA9aQoh1TswagYiAGYKWgGWM3/r/gjIX82Y1Xkg4xZRAMl8TkCZWGo33ywYH+mgqk9uT99P76vgsOZ0CqofxYaEK3x12okLxfRffLUZr1IrWEB9AEM/c+gU9M4PJOxDhuyjyFbELqkOTvkLqkuye9Fk0gWlEXfku9nzFNZ3aowqGDbgWfw2zMXZ56K3X/FqOwPCd49r/AzPQKfIUeOKPF4kMcZ1Ab2r/5NP1YeIhPpOvcbevk/Gu/GCMUHU0JmVu2QvG77O+RSpij7COdkdYIpI54QI1EgHFv3GMn2pmAL8uwRrr299VAT+WdiCzjo5WGIRYgCRkYMlJ4tnW45Vm6rGsjLeTSCRIo2wFMzdGp6d4OTjWg+15c/hjmRKUAdrhSC0mctx3GpDTOiTYLn+gDTaQCos="
+# Github token
+  - secure: "FKe82HlLAemdCZP3Y+zt6wDUkEqFdIcnqCimQiWlmfQOR2Z52B6ld5U2iYt9ShWXkOZcKKRrXS0laipujNyzGDHUAlr+1ayqI5rGxg9rkn9ddtFEg5u01Md5WzpKjVM7mISHa1trQE2ELVMN9869SuTiQP4ItFvcNOgORuRZp0vMDVC4fslZrcvjcn/uFmUPHdiCFiVuUCqQUJTT/7RT8FulPKwcN+pp56pNrXxxttZ06TMTF9Z6sgkamMejRRgz9ZXNKxBrdzaWRhBp3qCGN73yGIxrzw/lyX9HO0IAFaB4hDUDtgWLr7vQeMQRNj8RacN6H5ZhWv9vwag66Yi0/lYXuSrLKSYk20+W9AloIMOqzm+nkRwyuGwEJvzKuplsdJ91l9UG2AL/AxEBp/vZKTuOEM32M0SqWtdyGm+4NyiHzAMOs6/X+c4Z5fqWGiq+uktMkrItfPvWwuvrNjCtMPbK3j8M42Zm+hNEeDtGL6ts4i+C5kXVKE/BfgAH+QSmSTX51mAvlRgT0RK8dAqaK33PA5WE7O10Ot7CKcho2ecFaalkwSUeHVxGF9X5Gv1Ukig3ymOzuJMxLBcE7+nliTescHgTpJr2DLel+976BZs70e4CBcUniwJmktHoNLV35wfJ4moHmHHMuhanLigDaqX8QENvkavUvAzjViOhJLU="
