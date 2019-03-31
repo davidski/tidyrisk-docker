@@ -4,7 +4,7 @@ services:
 matrix:
   include:
     - env: BUILD_WHAT="evaluator"
-    - env: BUILD_WHAT="evaluator-noLD"
+#    - env: BUILD_WHAT="evaluator-noLD"
     - env: BUILD_WHAT="collector"
     - env: BUILD_WHAT="tidyrisk"
 
@@ -17,19 +17,19 @@ script:
 after_success:
 - docker rm -f evaluator collector
 - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
-- docker push tidyrisk/collector:latest
-- docker push tidyrisk/evaluator:latest
-- docker push tidyrisk/evaluator:noLD
-- docker push tidyrisk/tidyrisk:latest
+- if [ "$BUILD_WHAT" == "evaluator" ]; then docker push tidyrisk/evaluator:latest; fi
+- if [ "$BUILD_WHAT" == "evaluator-noLD" ]; then docker push tidyrisk/evaluator:noLD; fi
+- if [ "$BUILD_WHAT" == "collector" ]; then docker push tidyrisk/collector:latest; fi
+- if [ "$BUILD_WHAT" == "tidyrisk" ]; then docker push tidyrisk/tidyrisk:latest; fi
 
 notifications:
   slack:
     secure: "lBu+n1YP9FaPTiSpDWZqBXDJF1yoTC77kw6VI26S0GO8RcyEMZZNYGsjiEoTu1SMxbJsvIRC6Jg3kiU7Vnoz9lV/Oj9Xp8oEmS5gL3AGiXq6L7yDxshOjAK0coa+aKIp6aP7xjOVZ9DqI7hCIJnelz9j/1APEwuPC+av4kBtcvnnz4oClKDn+LRpowIGJufZ1IplCXjIyb89WOvjwI7hA/0WO8m6B/W1vU9xxQfeVeaeCRc/29RrIIX1elXLdu1YF8q56DJsnspNSFP8RuXMXvID5IXIXFqfOKb6G5BhYjNvaeovP2MCd5XpO7LYWQzAttRRoKLYO+f3MFRNb4iLIcciGcGa6h/pus7YQud/dWfj94zFleWp0xezduFLgJFrQd8BQXQiSjPcWTA+okwQqCf9DEFJMgCcC1i5vEE2OYtExicG5+835v+n38MrQdRp144Xl0X+bqITWb2xjfCDk5SHdAXR9poNPp5356Pj1roptbO9byZX1afoxEZ1CF3T5F+H7PQjuFWq6P+uDQpOS6+0hVtRrU6ry6MmXUnfmcAA+kqlNmdVDE8VTyckIzxzg9Ac3X94uaNZrUxarPOIGOQhP0Gj+wrtc3wx/BdLspJMtLS/PHq560UiUU/glbGllEClBQl+sCqRs9hsJwC8znlXvSAy28bf4oHhiGyiqD8="
 env:
   global:
+# docker username
   - secure: "Rks7BuPVU1O9LDfn8GoaWuXSwfz4ywV+EVXhkiOnUXEpicyxepW7oXFa7EceBa/k/CybD3H729BOhqxpoWHJ6GkSgkj4k2noYfvciemJD65/gxHk6RsmrmALIHvCLmkSDaJDXQdWN1vtmwWTGScTBwf3RZe8qWQkKVMI0RBHR4VypWLP+fylaLHsD3YrMBeOJD56xqTMZU4O1w8a6AheprWy44zDmq1H6JmDu388PdF8nA+sIfCIow1b/NgyyssPaF0h/Xw7TJ/YjufXtlKMHl59nV+UfPZyJoV61Q04FONoWVt9ZNmTUwt1tf2KxTLQz/k9Wc5MPqsWEVGaAADhlKHQiUAXf4t4B9WNVmnHODIMDzfcxTEbn3xlTASYxjYkA8ydM/l+A1uoIx74M5tZofU0v7durXGPFDtram1IT+e7Do2Xa6RbEHNBzvwax/qxwTicr+cNS8gIXe78238w05vdQH9x3YhNOPatPAnrhx/uiWcL59RQ593wCqcQNjUfavfvZUtjCRdvImhnq5lB6gxFAHUWZD9BN8+j6Gmlzgfn/D0+6J2/koWepTCqprt0UdtiUeKyDp2EthO5uY/v8a0npgdGQ409NZ7f4/zOFzoxanaSx75DtvfbZj+Sy8FmM0//pNFT/gC0iw8sdWGWS/z348l3raHiILNpN6MhpGQ="
-# Old Github token
-#  - secure: "ZQmzjc5LU31JBk/SHPIpwRtQJJt5ZBs2VtY2SWegFWvgmu3XBzuI0NkeKjtOik3Oxpp08Lay3lvtDfO3yblguGIFY5oAYIc6UaMuS4NN1rr0PiF0LILR0EdCcmWwJ1HSzYxKMmWITVOj1mRNZNyT0ZsbDlvW+mzdDwekCtxMrC26hO887E8D/1/pQJr/YhqW7fmZFD+Tmpbjbq4Js+GJw88lvXEfwXPI+6bgyTarv8zvUxoNh1xZQDlHuxORbZWavBfSsRGbcT3zK4Bt2G9S4nF+kFdJqgDMJyOSm+gZLpH2jn/9GdHyMmWUjp7Qk2T24k6/KgNN3GSBJNc9Ps1JYsWnxaq81P4dgXRRxTRxBlq2QChAXHZ2lVjzj+NAGtVHr6Wp57OTeFv1RJLvI4WpTzrJ7qzcIDUEK9ufpdnCxBKa9Zx+vlTSpJ+vt5rwRDD2V4S+eu8uXLoZQhVo+9tlz2QNO74O4xTAP0Yvd1wR+2HIxaymv+D6HDKwbg7nuK7vGj2JCWeSQz6GXsd3ocpwtJCdtm++NS7PbIepU7W9Bgn5N1o+GtRciCdSWCWkHKxF9JVYsYOJQ5gvmngFksn7z/pjSnPft08RQk9fYeMyn52NsL1KkD5AJuTIBnLikys4uAQeWk1+4SuQLu7ldOehqQYd3y7rukX743LSNr0JOoE="
+# docker password
   - secure: "R0iiyKgFY1t3JCvCNuW4wVoNru6j4mqnYMn/Dq9frX2uMPDSLijeJxD3IfMeJ48ppnz2Wst9aygpsXTuFgiYHwxxB829CN8O8HBtPIzR4sAlpVIQzVaOC4HWytjPEA/NFVyOEPP8sO23nRdR9l6/7Js2Lo8uzNWemr5vCYp+1BhWbjr1NFsNVo6vCbrOeKXyiznrsqMz4RbqD/pf23mKRk9anKeFPDl7AdSJaNd0mM9HYMSkuDF27KvOoNG5ClNUVG1Lcci2shBwcD30rA9aQoh1TswagYiAGYKWgGWM3/r/gjIX82Y1Xkg4xZRAMl8TkCZWGo33ywYH+mgqk9uT99P76vgsOZ0CqofxYaEK3x12okLxfRffLUZr1IrWEB9AEM/c+gU9M4PJOxDhuyjyFbELqkOTvkLqkuye9Fk0gWlEXfku9nzFNZ3aowqGDbgWfw2zMXZ56K3X/FqOwPCd49r/AzPQKfIUeOKPF4kMcZ1Ab2r/5NP1YeIhPpOvcbevk/Gu/GCMUHU0JmVu2QvG77O+RSpij7COdkdYIpI54QI1EgHFv3GMn2pmAL8uwRrr299VAT+WdiCzjo5WGIRYgCRkYMlJ4tnW45Vm6rGsjLeTSCRIo2wFMzdGp6d4OTjWg+15c/hjmRKUAdrhSC0mctx3GpDTOiTYLn+gDTaQCos="
 # Github token
   - secure: "liJ+0EQMvFXktdBE/1/SHp91SkWxHusjlnnqWV3Ac9ztSDXGNnp60/fAIdtlkUOZ4fFFWY9tQ3TOYNY2+Ho7warf5W9Y83bsI9BiY/inSXbWonshzVndlhB0PiRhTB+3iSCUdmij7y0nW868jysHLvSYlS5fCYP7tLe5q5C299dsViMncxSfgookZ1BAZa/SitcuamWSrMNFAQP1wKVzF55NgTbaWhhSM6/ZSaqUkWLRZgLa1D4SQQZ1HLbJ+XsChY8WQmJjoCzJaqbNrKJFW2BqVZdb7T+eMA27O4IQLQ8SrJ8OWt8pDSdRksX3jaXEC34lQCMu8V6wfnAoJhHj4DyBnJnNUMHiYIEfOqhiDPKYPzsyr1CU+lz80br37VQcjuTEnrY7Ri3JCgSasIQiLqQXNdUWE1zB08Xii9RkP0fZ7mfnns4v8nbmx8a/QK/Gn/SCB6eDhsYgNp1h27pKQCYoeanVoPiydXtSlCUNXKySQnTyiew5IEyckmyTtHm9YHrCSxPyvHuT0Awnl25zLM5P5lWyahCil1TZjwC1XceOJFL867JB+FvCG/F+EHrtScK5Ftv9qXnLQyXmTzmRfW/cl06npOZpPhnFr5HZi3TxMkiPUtcebudqN/ZmdI/whMA8sRejN7E/TBRwQCvuXpmDTE4qOe9B0g99DJH4KIc="
