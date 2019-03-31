@@ -1,20 +1,23 @@
 all:
-  collector evaluator tidyrisk noLD
+	collector evaluator tidyrisk noLD
 
-collector:
-  docker build -t davidski/collector:latest .
+collector: .PHONY
+	make -C collector/ latest
 
-evaluator:
-  docker build -t davidski/evaluator:latest .
+evaluator: .PHONY
+	make -C evaluator/ latest
 
-tidyrisk:
-  docker build -t davidski/tidyrisk:latest .
+tidyrisk: .PHONY
+	make -C tidyrisk/ latest
 
-noLD:
-  make -C noLD/ latest
+noLD: .PHONY
+	make -C noLD/ latest
 
-clean:
-  make -C collector/ clean
-  make -C evaluator/ clean
-  make -C tidyrisk/ clean
-  make -C noLD/ clean
+.PHONY:
+	@echo "Building tidyrisk images locally...\n"
+
+clean::
+	make -C collector/ clean
+	make -C evaluator/ clean
+	make -C tidyrisk/ clean
+	make -C noLD/ clean
