@@ -15,6 +15,10 @@ RUN apt-get update \
 
 ADD https://api.github.com/repos/davidski/collector/git/refs/heads/master?access_token=$GITHUB_TOKEN version.json
 
+# Silence pragma warnings for RcppEigen
+# Reference https://github.com/kaskr/adcomp/issues/277#issuecomment-400191014
+COPY Makevars ~/.R/Makevars
+
 RUN installGithub.r --deps=TRUE davidski/collector \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
