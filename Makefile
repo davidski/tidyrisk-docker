@@ -1,11 +1,14 @@
 all:
-	collector evaluator tidyrisk
+	collector evaluator evaluator-noLD tidyrisk
 
 collector: .PHONY
 	make -C collector/ latest
 
 evaluator: .PHONY
-	make -C evaluator/ latest noLD
+	make -C evaluator/ latest
+
+evaluator-noLD: .PHONY
+	make -C evaluator/ noLD
 
 tidyrisk: .PHONY
 	make -C tidyrisk/ latest

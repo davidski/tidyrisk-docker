@@ -1,5 +1,5 @@
 latest: .PHONY
-	docker build -t davidski/evaluator:noLD .
+	docker build -t tidyrisk/evaluator:noLD .
 
 .PHONY:
 	@echo "Building latest..."

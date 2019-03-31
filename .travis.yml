@@ -4,11 +4,13 @@ services:
 matrix:
   include:
     - env: BUILD_WHAT="evaluator"
+    - env: BUILD_WHAT="evaluator-noLD"
     - env: BUILD_WHAT="collector"
     - env: BUILD_WHAT="tidyrisk"
 
 script:
   - if [ "$BUILD_WHAT" == "evaluator" ]; then make evaluator; fi
+  - if [ "$BUILD_WHAT" == "evaluator-noLD" ]; then make evaluator-noLD; fi
   - if [ "$BUILD_WHAT" == "collector" ]; then make collector; fi
   - if [ "$BUILD_WHAT" == "tidyrisk" ]; then make tidyrisk; fi
 
