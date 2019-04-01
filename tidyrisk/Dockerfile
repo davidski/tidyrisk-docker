@@ -18,7 +18,7 @@ ADD https://api.github.com/repos/davidski/evaluator/git/refs/heads/master?access
 
 # Silence pragma warnings for RcppEigen
 # Reference https://github.com/kaskr/adcomp/issues/277#issuecomment-400191014
-COPY Makevars $HOME/.R/Makevars
+COPY Makevars /root/.R/Makevars
 
 RUN installGithub.r --deps=TRUE davidski/evaluator davidski/collector \
     && apt-get clean \
