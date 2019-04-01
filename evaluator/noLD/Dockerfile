@@ -11,54 +11,54 @@ LABEL org.opencontainers.licenses="MIT" \
 
 ## Remain current
 RUN apt-get update -qq \
-	&& apt-get dist-upgrade -y
+    && apt-get dist-upgrade -y
 
 ## From the Build-Depends of the Debian R package, plus subversion
 RUN apt-get update -qq \
-	&& apt-get install -t unstable -y --no-install-recommends \
-		bash-completion \
-		bison \
-		debhelper \
-		default-jdk \
-		g++ \
-		gcc \
-		gdb \
-		gfortran \
-		groff-base \
-		libblas-dev \
-		libbz2-dev \
-		libcairo2-dev/unstable \
-		libcurl4-openssl-dev \
-		libjpeg-dev \
-		liblapack-dev \
-		liblzma-dev \
-		libncurses5-dev \
-		libpango1.0-dev \
-		libpcre3-dev \
-		libpng-dev \
-		libreadline-dev \
-		libtiff5-dev \
-		libx11-dev \
-		libxt-dev \
-		mpack \
-		subversion \
-		tcl8.6-dev \
-		texinfo \
-		texlive-base \
-		texlive-extra-utils \
-		texlive-fonts-extra \
-		texlive-fonts-recommended \
-		texlive-generic-recommended \
-		texlive-latex-base \
-		texlive-latex-extra \
-		texlive-latex-recommended \
-		tk8.6-dev \
-		x11proto-core-dev \
-		xauth \
-		xdg-utils \
-		xfonts-base \
-		xvfb \
-		zlib1g-dev
+    && apt-get install -t unstable -y --no-install-recommends \
+        bash-completion \
+        bison \
+        debhelper \
+        default-jdk \
+        g++ \
+        gcc \
+        gdb \
+        gfortran \
+        groff-base \
+        libblas-dev \
+        libbz2-dev \
+        libcairo2-dev/unstable \
+        libcurl4-openssl-dev \
+        libjpeg-dev \
+        liblapack-dev \
+        liblzma-dev \
+        libncurses5-dev \
+        libpango1.0-dev \
+        libpcre3-dev \
+        libpng-dev \
+        libreadline-dev \
+        libtiff5-dev \
+        libx11-dev \
+        libxt-dev \
+        mpack \
+        subversion \
+        tcl8.6-dev \
+        texinfo \
+        texlive-base \
+        texlive-extra-utils \
+        texlive-fonts-extra \
+        texlive-fonts-recommended \
+        texlive-generic-recommended \
+        texlive-latex-base \
+        texlive-latex-extra \
+        texlive-latex-recommended \
+        tk8.6-dev \
+        x11proto-core-dev \
+        xauth \
+        xdg-utils \
+        xfonts-base \
+        xvfb \
+        zlib1g-dev
 
 ## Check out R-devel
 RUN cd /tmp \
@@ -66,28 +66,28 @@ RUN cd /tmp \
 
 ## Build and install according the standard 'recipe' I emailed/posted years ago
 RUN cd /tmp/R-devel \
-	&& R_PAPERSIZE=letter \
-		R_BATCHSAVE="--no-save --no-restore" \
-		R_BROWSER=xdg-open \
-		PAGER=/usr/bin/pager \
-		PERL=/usr/bin/perl \
-		R_UNZIPCMD=/usr/bin/unzip \
-		R_ZIPCMD=/usr/bin/zip \
-		R_PRINTCMD=/usr/bin/lpr \
-		LIBnn=lib \
-		AWK=/usr/bin/awk \
-		CFLAGS=$(R CMD config CFLAGS) \
-		CXXFLAGS=$(R CMD config CXXFLAGS) \
-	./configure --enable-R-shlib \
+    && R_PAPERSIZE=letter \
+        R_BATCHSAVE="--no-save --no-restore" \
+        R_BROWSER=xdg-open \
+        PAGER=/usr/bin/pager \
+        PERL=/usr/bin/perl \
+        R_UNZIPCMD=/usr/bin/unzip \
+        R_ZIPCMD=/usr/bin/zip \
+        R_PRINTCMD=/usr/bin/lpr \
+        LIBnn=lib \
+        AWK=/usr/bin/awk \
+        CFLAGS=$(R CMD config CFLAGS) \
+        CXXFLAGS=$(R CMD config CXXFLAGS) \
+    ./configure --enable-R-shlib \
               --enable-long-double=no \
                --without-blas \
                --without-lapack \
                --with-readline \
                --without-recommended-packages \
                --program-suffix=dev \
-	&& make \
-	&& make install \
-	&& rm -rf /tmp/R-devel
+    && make \
+    && make install \
+    && rm -rf /tmp/R-devel
 
 ## needed packages for evaluator testing
 RUN apt-get install -y git libssl-dev libxml2-dev libproj-dev
