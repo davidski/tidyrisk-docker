@@ -2,6 +2,7 @@ FROM rocker/tidyverse:3.5.3
 
 ARG EVALUATOR_VERSION
 ARG GITHUB_TOKEN
+ARG GITHUB_PAT
 
 LABEL maintainer="davidski@deadheaven.com"
 
