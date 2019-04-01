@@ -2,6 +2,7 @@ FROM rocker/tidyverse:3.5.3
 
 ARG EVALUATOR_VERSION
 ARG GITHUB_TOKEN
+ARG GITHUB_PAT
 
 LABEL org.opencontainers.licenses="MIT" \
       org.opencontainers.source="https://github.com/davidski/tidyrisk-docker" \
@@ -14,7 +15,7 @@ RUN apt-get update \
     && install2.r --deps=TRUE remotes \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-ADD https://api.github.com/repos/davidski/evaluator/git/refs/heads/master?access_token=$GITHUB_TOKEN version.json
+ADD https://api.github.com/repos/davidski/evaluator/git/refs/heads/master?access_token=${GITHUB_TOKEN} version.json
 
 RUN installGithub.r --deps=TRUE davidski/evaluator \
     && apt-get clean \

@@ -3,6 +3,8 @@
 ## start with the Docker 'base R' Debian-based image
 FROM r-base:latest
 
+ARG GITHUB_PAT
+
 LABEL org.opencontainers.licenses="MIT" \
       org.opencontainers.source="https://github.com/davidski/tidyrisk-docker" \
       maintainer="David F. Severski <davidski@deadheaven.com>"
