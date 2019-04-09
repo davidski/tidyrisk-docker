@@ -106,9 +106,9 @@ RUN cd /usr/local/bin \
 
 ## get evaluator & dependencies
 RUN rm -rf /usr/local/lib/R/site-library/* \
-  && Rdevel -e 'install.packages("devtools", dependencies = TRUE)' \ 
+  && Rdevel -e 'install.packages("remotes", dependencies = TRUE)' \ 
   && cd ~ \
   && git clone https://github.com/davidski/evaluator.git \
   && cd evaluator \
-  && Rdevel -e 'devtools::install_deps(dep=TRUE)'
+  && Rdevel -e 'remotes::install_deps(dep=TRUE)'
 
