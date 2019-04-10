@@ -11,7 +11,7 @@ LABEL org.opencontainers.licenses="MIT" \
 
 ## Remain current
 RUN apt-get update -qq \
-    && apt-get dist-upgrade -y
+        && apt-get dist-upgrade -y
 
 ## From the Build-Depends of the Debian R package, plus subversion
 RUN apt-get update -qq \
@@ -62,9 +62,9 @@ RUN apt-get update -qq \
 
 ## Check out R-devel
 RUN cd /tmp \
-&& svn co https://svn.r-project.org/R/trunk R-devel
+        && svn co https://svn.r-project.org/R/trunk R-devel
 
-## Build and install according the standard 'recipe' I emailed/posted years ago
+## Build and install according the standard 'recipe' Dirk emailed/posted years ago
 RUN cd /tmp/R-devel \
     && R_PAPERSIZE=letter \
         R_BATCHSAVE="--no-save --no-restore" \
@@ -79,7 +79,7 @@ RUN cd /tmp/R-devel \
         CFLAGS=$(R CMD config CFLAGS) \
         CXXFLAGS=$(R CMD config CXXFLAGS) \
     ./configure --enable-R-shlib \
-              --enable-long-double=no \
+               --enable-long-double=no \
                --without-blas \
                --without-lapack \
                --with-readline \
@@ -89,8 +89,6 @@ RUN cd /tmp/R-devel \
     && make install \
     && rm -rf /tmp/R-devel
 
-## needed packages for evaluator testing
-RUN apt-get install -y git libssl-dev libxml2-dev libproj-dev
 
 ## Set Renviron to get libs from base R install
 RUN echo "R_LIBS=\${R_LIBS-'/usr/local/lib/R/site-library:/usr/local/lib/R/library:/usr/lib/R/library'}" >> /usr/local/lib/R/etc/Renviron
@@ -99,10 +97,13 @@ RUN echo "R_LIBS=\${R_LIBS-'/usr/local/lib/R/site-library:/usr/local/lib/R/libra
 RUN echo 'options(repos = c(CRAN = "https://cran.rstudio.com/"), download.file.method = "libcurl")' >> /usr/local/lib/R/etc/Rprofile.site
 
 RUN cd /usr/local/bin \
-&& mv R Rdevel \
-&& mv Rscript Rscriptdevel \
-&& ln -s Rdevel RD \
-&& ln -s Rscriptdevel RDscript
+        && mv R Rdevel \
+        && mv Rscript Rscriptdevel \
+        && ln -s Rdevel RD \
+        && ln -s Rscriptdevel RDscript
+
+## needed packages for evaluator testing
+RUN apt-get install -y git libssl-dev libxml2-dev libproj-dev
 
 ## get evaluator & dependencies
 RUN rm -rf /usr/local/lib/R/site-library/* \
@@ -111,4 +112,3 @@ RUN rm -rf /usr/local/lib/R/site-library/* \
   && git clone https://github.com/davidski/evaluator.git \
   && cd evaluator \
   && Rdevel -e 'remotes::install_deps(dep=TRUE)'
-

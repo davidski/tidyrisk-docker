@@ -53,6 +53,14 @@ options on running and configuring the Dockerized RStudio instance.
 | `tidyrisk` | **Not yet built** A combined collector & evaluator image. | [![](https://images.microbadger.com/badges/image/tidyrisk/tidyrisk.svg)](https://microbadger.com/images/tidyrisk/tidyrisk) |
 | `evaluator-noLD` | **Not yet built** Evaluator installed with r-devel without long double support. This is an internal container used for testing tidyrisk prior to CRAN release. | [![](https://images.microbadger.com/badges/image/tidyrisk/evaluator.svg)](https://microbadger.com/images/tidyrisk/evaluator) |
 
+
+NoLD tests are executed using the Rdevel instance via:
+
+```bash
+RD CMD build .
+RD CMD check --as-cran evaluator*
+```
+
 ## Contributing
 
 This project is governed by a [Code of Conduct](./CODE_OF_CONDUCT.md). By 
