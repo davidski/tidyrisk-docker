@@ -1,4 +1,4 @@
-FROM rocker/tidyverse:3.5.3
+FROM rocker/tidyverse:4.0.3
 
 ARG EVALUATOR_VERSION
 ARG GITHUB_PAT
