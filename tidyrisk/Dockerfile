@@ -1,4 +1,4 @@
-FROM rocker/tidyverse:4.0.4
+FROM rocker/shiny-verse:4.0.4
 
 ARG EVALUATOR_VERSION
 ARG GITHUB_PAT
@@ -6,8 +6,6 @@ ARG GITHUB_PAT
 LABEL org.opencontainers.licenses="MIT" \
       org.opencontainers.source="https://github.com/davidski/tidyrisk-docker" \
       maintainer="David F. Severski <davidski@deadheaven.com>"
-
-RUN export ADD=shiny && bash /etc/cont-init.d/add
 
 RUN apt-get update \
     && apt-get install -y zlib1g-dev libproj-dev libcairo2-dev libmagick++-dev \
