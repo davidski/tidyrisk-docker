@@ -15,7 +15,7 @@ RUN apt-get update \
     && install2.r --deps=TRUE remotes \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-ADD "https://api.github.com/repos/davidski/collector/git/refs/heads/master?access_token=${GITHUB_PAT}" "collector_version.json"
+ADD "https://api.github.com/repos/davidski/collector/git/refs/heads/main?access_token=${GITHUB_PAT}" "collector_version.json"
 
 # Silence pragma warnings for RcppEigen
 # Reference https://github.com/kaskr/adcomp/issues/277#issuecomment-400191014

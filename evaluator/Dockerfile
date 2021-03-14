@@ -14,7 +14,7 @@ RUN apt-get update \
     && GITHUB_PAT=${GITHUB_PAT} install2.r --deps=TRUE remotes \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-ADD "https://api.github.com/repos/davidski/evaluator/git/refs/heads/master?access_token=${GITHUB_PAT}" "evaluator_version.json"
+ADD "https://api.github.com/repos/davidski/evaluator/git/refs/heads/main?access_token=${GITHUB_PAT}" "evaluator_version.json"
 
 RUN GITHUB_PAT=${GITHUB_PAT} installGithub.r --deps=TRUE davidski/evaluator \
     && apt-get clean \
