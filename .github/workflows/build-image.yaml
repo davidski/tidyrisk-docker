@@ -17,6 +17,7 @@ jobs:
     defaults:
       run:
         working-directory: ./${{ env.IMAGE_NAME }}
+        context: ./${{ env.IMAGE_NAME }}
     env:
       IMAGE_NAME: ${{ matrix.image }}
     steps:
