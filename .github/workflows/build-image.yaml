@@ -1,0 +1,46 @@
+name: Docker Image
+
+on:
+  push:
+    branches:
+      - master
+      - main
+
+jobs:
+  build:
+    if: github.event_name == 'push' && contains(toJson(github.event.commits), '***NO_CI***') == false && contains(toJson(github.event.commits), '[ci skip]') == false && contains(toJson(github.event.commits), '[skip ci]') == false
+    strategy:
+      fail-fast: true
+      matrix:
+        image: [evaluator, collector, tidyrisk]
+    runs-on: ubuntu-20.04
+    env:
+      IMAGE_NAME: ${{ matrix.image }}
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Docker meta
+      id: docker_meta
+      uses: crazy-max/ghaction-docker-meta@v1
+      with:
+        images: tidyrisk/${{ env.IMAGE_NAME }}
+    - name: Set up QEMU
+      uses: docker/setup-qemu-action@v1
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v1
+    - name: Login to Dockerhub
+      uses: docker/login-action@v1
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME}}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+    - name: Build and push
+      id: docker_build
+      uses: docker/build-push-action@v2
+      with:
+        file: ./${{ env.IMAGE_NAME }}/Dockerfile
+        push: ${{ github.event_name != 'pull_request' }}
+        tags: ${{ steps.docker_meta.outputs.tags }}
+        labels: ${{ steps.docker_meta.outputs.labels }}
+    - name: Image digest
+      rin: echo $${ steps.docker_buiild.outputs.digest }}
+
