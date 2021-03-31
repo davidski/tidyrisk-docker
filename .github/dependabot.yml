@@ -8,12 +8,21 @@ updates:
   - package-ecosystem: "docker" # See documentation for possible values
     directory: "/evaluator" # Location of package manifests
     schedule:
-      interval: "daily"
+      interval: "weekly"
+      day: "sunday"
+    assignee:
+      - "davidski"
   - package-ecosystem: "docker" # See documentation for possible values
     directory: "/collecor" # Location of package manifests
     schedule:
-      interval: "daily"
+      interval: "weekly"
+      day: "sunday"
+    assignee:
+      - "davidski"
   - package-ecosystem: "docker" # See documentation for possible values
     directory: "/tidyrisk" # Location of package manifests
     schedule:
-      interval: "daily"
+      interval: "weekly"
+      day: "sunday"
+    assignee:
+      - "davidski"
