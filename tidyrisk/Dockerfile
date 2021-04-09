@@ -1,4 +1,4 @@
-FROM rocker/shiny-verse:4.0.4
+FROM rocker/shiny-verse:4.0.5
 
 ARG EVALUATOR_VERSION
 ARG GITHUB_PAT
